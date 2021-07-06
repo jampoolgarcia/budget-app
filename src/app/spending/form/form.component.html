@@ -11,7 +11,17 @@
                name="description" 
                id="description" 
                aria-describedby="description expense" 
-               placeholder="Enter description expense">
+               placeholder="Enter description expense"
+               [(ngModel)]="expense.description"
+               #description="ngModel"
+               [ngClass]="{
+                            'is-valid': description.dirty && !description.errors, 
+                            'is-invalid': description.dirty && description.errors
+                          }"
+               required>
+        <div class="invalid-feedback animate__animated animate__fadeInDown">
+            required
+        </div>
       </div>
       <div class="form-group mb-4">
         <label for="description" class="bold">Spent money</label>
@@ -24,7 +34,7 @@
                [ngClass]="{
                             'is-valid': cash.dirty && !cash.errors, 
                             'is-invalid': cash.dirty && cash.errors
-                         }"              
+                          }"              
                required>
         <div class="invalid-feedback animate__animated animate__fadeInDown">
             Invalid cash
