@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { BudgetService } from '../services/budget.service';
 
 @Component({
   selector: 'app-budget',
@@ -6,11 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class BudgetComponent implements OnInit {
+export class BudgetComponent {
 
-  constructor() { }
+  public budget!: number;     
+   
+  constructor(private _service: BudgetService,
+              private router: Router) { }
 
-  ngOnInit(): void {
+  ngSubmit(){
+      this._service.budget = this.budget;
+      this._service.spending = this.budget; 
+      this.router.navigate(['/spending']);
   }
 
 }
