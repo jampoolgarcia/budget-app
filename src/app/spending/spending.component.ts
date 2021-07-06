@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { BudgetService } from '../services/budget.service';
 
 @Component({
   selector: 'app-spending',
@@ -6,11 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class SpendingComponent implements OnInit {
+export class SpendingComponent implements OnDestroy {
 
-  constructor() { }
+  private subscription: Subscription;
+  public leftover = 0;
 
-  ngOnInit(): void {
+  constructor(private _service: BudgetService) { 
+    this.leftover = _service.leftover;
+    this.subscription = this._service.getExpense()
+      .subscribe(res => {
+        this.leftover -= res.cash!;
+      }
+    )
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

@@ -1,19 +1,22 @@
 <div class="container my-5">
   <h2 class="title">Spending management</h2>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-         <div class="card-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <app-form></app-form>
-              </div>
-              <div class="col-lg-6">
-                <app-list></app-list>
-              </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6">
+              <app-form></app-form>
+            </div>
+            <div class="col-lg-6">
+              <app-list></app-list>
             </div>
           </div>
         </div>
+        <div *ngIf="leftover === 0" class="card-footer">
+          <button type="button" routerLink="['/budget']" class="btn btn-secondary w-100">Budget</button>
+        </div>
       </div>
     </div>
+  </div>
 </div>

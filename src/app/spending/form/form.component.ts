@@ -22,8 +22,11 @@ export class FormComponent {
 
   onSubmit(form: NgForm){
     if(this.expense.cash! <= this._service.leftover){
-      this._service.addExpense(this.expense);
-      this.defaultData();
+      this._service.addExpense({ 
+        description: this.expense.description,
+        cash: this.expense.cash
+      });
+      form.reset();
     }else{
       form.controls.cash.setErrors(
         {error: 'max'}
