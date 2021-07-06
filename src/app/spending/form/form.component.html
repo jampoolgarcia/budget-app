@@ -1,9 +1,8 @@
-<div class="row">
+<div class="row my-4">
   <div class="col-lg-12">
     <h3>Expense form</h3>
     <hr>
-
-    <form #form="ngForm" (submit)="onSubmit()">
+    <form #form="ngForm" (submit)="onSubmit(form)">
       <div class="form-group mb-4">
         <label for="description" class="bold">Description</label>
         <input type="text"
@@ -24,9 +23,10 @@
         </div>
       </div>
       <div class="form-group mb-4">
-        <label for="description" class="bold">Spent money</label>
+        <label for="cash" class="bold">Spent money</label>
         <input type="number" 
-               class="form-control" name="budget" 
+               class="form-control" 
+               name="cash" 
                placeholder="Enter the spent money."
                [(ngModel)]="expense.cash"
                min="1"
@@ -39,6 +39,7 @@
         <div class="invalid-feedback animate__animated animate__fadeInDown">
             Invalid cash
         </div>
+        
       </div>
       <button type="submit" 
                     [disabled]="form.invalid"

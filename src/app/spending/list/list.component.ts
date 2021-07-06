@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { BudgetService } from 'src/app/services/budget.service';
 
 @Component({
   selector: 'app-list',
@@ -6,11 +9,24 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnDestroy {
 
-  constructor() { }
+  private subscription: Subscription;
 
-  ngOnInit(): void {
+  constructor(private _service: BudgetService,
+              private router: Router) {
+        
+    if(this._service.budget <= 0) this.router.navigate(['/badget']);
+        
+    this.subscription = this._service.getExpense()
+      .subscribe(res => {
+        console.log(res);
+      }
+    )
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

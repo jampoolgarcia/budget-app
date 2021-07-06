@@ -17,7 +17,7 @@ export class BudgetComponent {
 
   ngSubmit(){
       this._service.budget = this.budget;
-      this._service.spending = this.budget; 
+      this._service.leftover = this.budget; 
       this.router.navigate(['/spending']);
   }
 

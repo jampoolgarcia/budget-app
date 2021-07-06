@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, NgForm } from '@angular/forms';
+import { BudgetService } from 'src/app/services/budget.service';
 import { SpendingI } from '../model/spending';
 
 @Component({
@@ -14,12 +16,19 @@ export class FormComponent {
 
   public expense!: SpendingI;
 
-  constructor() {
+  constructor(private _service: BudgetService) {
     this.defaultData();
   }
 
-  onSubmit(){
-    console.log('submit');
+  onSubmit(form: NgForm){
+    if(this.expense.cash! <= this._service.leftover){
+      this._service.addExpense(this.expense);
+      this.defaultData();
+    }else{
+      form.controls.cash.setErrors(
+        {error: 'max'}
+      )
+    }
   }
 
   defaultData(){
